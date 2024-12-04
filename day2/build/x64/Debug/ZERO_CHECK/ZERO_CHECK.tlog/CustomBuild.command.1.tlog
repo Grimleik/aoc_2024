@@ -1,0 +1,10 @@
+^W:\IN_PROGRESS\AOC_2024\DAY2\BUILD\CMAKEFILES\AA8B143172052802FF85F3C05A7BFB98\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SW:/in_progress/aoc_2024/day2 -BW:/in_progress/aoc_2024/day2/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file W:/in_progress/aoc_2024/day2/build/day2.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
