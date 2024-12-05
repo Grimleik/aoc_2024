@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.build": "cpp",
+        "xutility": "cpp",
+        "xtr1common": "cpp"
+    }
+}
