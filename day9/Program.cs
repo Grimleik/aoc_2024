@@ -26,10 +26,6 @@ class Program
 		string fileContents = File.ReadAllText(inputFile).Trim();
 		List<long> ids = new List<long>();
 
-		/* NOTE(pf): ID can be > 9, so we need to ensure that we capture the
-			correct number of repeats and also store this information for the next process.
-		*/
-
 		int i, j;
 		int dbgHits = 0, dbgMiss = 0;
 		for (i = 0; i < fileContents.Length; ++i)
@@ -59,23 +55,26 @@ class Program
 			}
 		}
 
-        long result = 0;
+		long result = 0;
 		i = 0;
 		j = ids.Count - 1;
-		while(i < j) {
-			while(i < j && ids[i] != -1) {
+		while (i < j)
+		{
+			while (i < j && ids[i] != -1)
+			{
 				++i;
 			}
-			while(i < j && ids[j] == -1)
+			while (i < j && ids[j] == -1)
 				--j;
-			
+
 			ids[i] = ids[j];
 			ids[j] = -1;
 			++i;
 			--j;
 		}
 
-		for(i = 0; i < j; ++i) {
+		for (i = 0; i < j; ++i)
+		{
 			long part = (long)((long)ids[i] * (long)i);
 			Debug.Assert(part >= ids[i]);
 			result += part;
