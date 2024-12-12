@@ -11,7 +11,7 @@ class Program
 		string inputFile;
 		if (args.Length == 0)
 		{
-			inputFile = "../../../i1";
+			inputFile = "../../../i1.in";
 		}
 		else
 		{
@@ -73,7 +73,7 @@ class Program
 			--j;
 		}
 
-		for (i = 0; i < j; ++i)
+		for (i = 0; i <= j; ++i)
 		{
 			long part = (long)((long)ids[i] * (long)i);
 			Debug.Assert(part >= ids[i]);
