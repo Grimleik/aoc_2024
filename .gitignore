@@ -36,8 +36,9 @@
 **/out/**
 **/obj/**
 
-# Input Files
+# Input/Output Files
 *.in
+*.of
 
 # .NET
 **/net9.0/**
