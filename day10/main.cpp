@@ -9,6 +9,7 @@
 #define DEBUG_RENDER 1
 #define DEAD_END (-1)
 std::map<std::pair<int, int>, std::set<int>> cachedData;
+std::map<std::pair<int, int>, int> cachedTrails;
 
 void trail_search(std::pair<int, int> &idx, int w, int h, const std::vector<std::string> &map)
 {
@@ -31,6 +32,9 @@ void trail_search(std::pair<int, int> &idx, int w, int h, const std::vector<std:
 				if (map[newY][newX] == '9')
 				{
 					cachedData[idx].insert(newY * w + newX);
+					if (cachedTrails.find(idx) == cachedTrails.end())
+						cachedTrails[idx] = 0;
+					cachedTrails[idx]++;
 				}
 				else
 				{
@@ -44,6 +48,10 @@ void trail_search(std::pair<int, int> &idx, int w, int h, const std::vector<std:
 					if (cache.size() == 1 && *cache.begin() == DEAD_END)
 					{
 						continue;
+					}
+					else if (cache.size() > 0)
+					{
+						cachedTrails[idx] += cachedTrails[neighbourIdx];
 					}
 					cachedData[idx].insert(
 						cachedData[neighbourIdx].begin(),
@@ -91,11 +99,13 @@ int main(int, char **)
 	}
 
 	int totalScore = 0;
+	int part2Score = 0;
 	for (auto &sl : startingLocs)
 	{
 		trail_search(sl, width, height, trailMap);
 		std::cout << "Trail score: " << cachedData[sl].size() << std::endl;
 		totalScore += static_cast<int>(cachedData[sl].size());
+		part2Score += cachedTrails[sl];
 	}
 
 #if DEBUG_RENDER
@@ -113,7 +123,7 @@ int main(int, char **)
 				if ((i + 1) == 7)
 					++i;
 				++i;
-				if(i > 15)
+				if (i > 15)
 					i = 0;
 			}
 			std::cout << cachedData[std::make_pair(height, width)].size();
@@ -125,6 +135,7 @@ int main(int, char **)
 	}
 #endif
 	std::cout << "Total score: " << totalScore << " ." << std::endl;
+	std::cout << "Part2 score: " << part2Score << " ." << std::endl;
 
 	auto end = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double, std::milli> elapsed = end - start;
